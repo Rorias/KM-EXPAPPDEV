@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,39 +8,69 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using System.Timers;
 
 namespace Tamagossie.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        string _fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "notes.txt");
-
         public MainPage()
         {
             InitializeComponent();
 
-            // Read the file.
-            if (File.Exists(_fileName))
+            navBarLayout.WidthRequest = WidthRequest;
+
+            navBarLayout.Children.Add(navBarGrid,
+                Constraint.RelativeToParent((parent) =>
+                {
+                    return (parent.Width / 2f) - (navBarGrid.WidthRequest / 2);
+                }),
+                Constraint.RelativeToParent((parent) =>
+                {
+                    return parent.Height - navBarGrid.HeightRequest;
+                }), null, null);
+
+            var timer = new Timer()
             {
-                editor.Text = File.ReadAllText(_fileName);
-            }
+                Interval = 500,
+                AutoReset = true
+            };
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
         }
 
-        void OnSaveButtonClicked(object sender, EventArgs e)
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // Save the file.
-            File.WriteAllText(_fileName, editor.Text);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                hungerbar.WidthRequest = (double)Application.Current.Properties[App.pHunger];
+                thirstbar.WidthRequest = (double)Application.Current.Properties[App.pThirst];
+                boredbar.WidthRequest = (double)Application.Current.Properties[App.pBored];
+                alonebar.WidthRequest = (double)Application.Current.Properties[App.pAlone];
+                tiredbar.WidthRequest = (double)Application.Current.Properties[App.pTired];
+            });
         }
 
-        void OnDeleteButtonClicked(object sender, EventArgs e)
+        public async void OnFeedClicked(object sender, EventArgs e)
         {
-            // Delete the file.
-            if (File.Exists(_fileName))
-            {
-                File.Delete(_fileName);
-            }
-            editor.Text = string.Empty;
+            await Navigation.PushAsync(new FeedPage());
+        }
+
+        public async void OnThirstClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ThirstPage());
+        }
+
+        public async void OnPlayClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PlayPage());
+        }
+
+        public async void OnSleepClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SleepPage());
         }
     }
 }

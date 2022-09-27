@@ -2,19 +2,60 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tamagossie.Views.MainPage"
-             Title="Tamagossie">
-    <!-- Layout children vertically -->
-    <StackLayout Margin="20">
-        <Editor x:Name="editor"
-                Placeholder="Enter your note"
-                HeightRequest="100" />
-        <!-- Layout children in two columns -->
-        <Grid ColumnDefinitions="*,*">
-            <Button Text="Save"
-                    Clicked="OnSaveButtonClicked" />
-            <Button Grid.Column="1"
-                    Text="Delete"
-                    Clicked="OnDeleteButtonClicked"/>
+             NavigationPage.HasNavigationBar="False"
+             Padding="10, 10, 10, 10"
+             BackgroundImageSource="mainbackground.jpg">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="StatWidth">340</x:Double>
+            <x:Double x:Key="StatHeight">32</x:Double>
+            <x:Double x:Key="NavWidth">48</x:Double>
+            <x:Double x:Key="NavHeight">48</x:Double>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <RelativeLayout x:Name="navBarLayout" BackgroundColor="Transparent">
+        <StackLayout x:Name="Stats">
+            <Label x:Name="hungertext" HorizontalTextAlignment="Start" FontSize="Medium">Hunger</Label>
+            <AbsoluteLayout x:Name="hungerbarholder" WidthRequest="200" HeightRequest="{StaticResource StatHeight}">
+                <Image Grid.Column="0" x:Name="hungerbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image Grid.Column="0" x:Name="hungerbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="SaddleBrown"/>
+            </AbsoluteLayout>
+            <Label x:Name="thirsttext" HorizontalTextAlignment="Start" FontSize="Medium">Thirst</Label>
+            <AbsoluteLayout x:Name="thirstbarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
+                <Image Grid.Column="0" x:Name="thirstbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image Grid.Column="0" x:Name="thirstbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="RoyalBlue"/>
+            </AbsoluteLayout>
+            <Label x:Name="boredtext" HorizontalTextAlignment="Start" FontSize="Medium">Boredom</Label>
+            <AbsoluteLayout x:Name="boredbarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
+                <Image Grid.Column="0" x:Name="boredbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image Grid.Column="0" x:Name="boredbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="AntiqueWhite"/>
+            </AbsoluteLayout>
+            <Label x:Name="alonetext" HorizontalTextAlignment="Start" FontSize="Medium">Loneliness</Label>
+            <AbsoluteLayout x:Name="alonebarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
+                <Image Grid.Column="0" x:Name="alonebarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image Grid.Column="0" x:Name="alonebar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="LawnGreen"/>
+            </AbsoluteLayout>
+            <Label x:Name="tiredtext" HorizontalTextAlignment="Start" FontSize="Medium">Tiredness</Label>
+            <AbsoluteLayout x:Name="tiredbarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
+                <Image Grid.Column="0" x:Name="tiredbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image Grid.Column="0" x:Name="tiredbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="MediumBlue"/>
+            </AbsoluteLayout>
+        </StackLayout>
+        <Grid x:Name="navBarGrid" HeightRequest="{StaticResource NavHeight}" WidthRequest="208">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource NavWidth}"/>
+                <ColumnDefinition Width="{StaticResource NavWidth}"/>
+                <ColumnDefinition Width="{StaticResource NavWidth}"/>
+                <ColumnDefinition Width="{StaticResource NavWidth}"/>
+            </Grid.ColumnDefinitions>
+            <ImageButton Grid.Column="0" Source="icon_food.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnFeedClicked"/>
+            <Label Grid.Column="0" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Eat</Label>
+            <ImageButton Grid.Column="1" Source="icon_thirst.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnThirstClicked"/>
+            <Label Grid.Column="1" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Drink</Label>
+            <ImageButton Grid.Column="2" Source="icon_play.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnPlayClicked"/>
+            <Label Grid.Column="2" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Play</Label>
+            <ImageButton Grid.Column="3" Source="icon_sleep.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnSleepClicked"/>
+            <Label Grid.Column="3" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Sleep</Label>
         </Grid>
-    </StackLayout>
+    </RelativeLayout>
 </ContentPage>
