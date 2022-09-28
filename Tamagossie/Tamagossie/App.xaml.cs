@@ -19,14 +19,16 @@ namespace Tamagossie
         public const string pBored = "bored";
         public const string pAlone = "alone";
         public const string pTired = "tired";
+        public const string pSleepTime = "sleepTime"; //The time Gossie went to bed
         public const string pSleeping = "sleeping";
 
         public static Dictionary<string, Timer> timers = new Dictionary<string, Timer>();
 
         public App()
         {
+            //ForceResetPreferences();
             LoadPreferences();
-            UpdateStats();
+            UpdateOfflineStats();
 
             InitializeComponent();
             MainPage = new NavigationPage(new MainPage());
@@ -52,9 +54,17 @@ namespace Tamagossie
             Current.Properties[pBored] = Preferences.Get(pBored, 0d);
             Current.Properties[pAlone] = Preferences.Get(pAlone, 170d);
             Current.Properties[pTired] = Preferences.Get(pTired, 0d);
+            Current.Properties[pSleeping] = Preferences.Get(pSleeping, false);
+            Current.Properties[pSleepTime] = Preferences.Get(pSleepTime, DateTime.Now);
+            double sleepSeconds = (nowTime - (DateTime)Current.Properties[pSleepTime]).TotalSeconds;
+
+            if ((bool)Current.Properties[pSleeping] && sleepSeconds >= 600)
+            {
+                Current.Properties[pSleeping] = false;
+            }
         }
 
-        private void UpdateStats()
+        private void UpdateOfflineStats()
         {
             SetCreatureStat(pHunger, -((double)Current.Properties[pLastLogin] / 10d * 0.5d));
             SetCreatureStat(pThirst, -((double)Current.Properties[pLastLogin] / 10d * 1d));
@@ -71,6 +81,8 @@ namespace Tamagossie
             Preferences.Set(pBored, (double)Current.Properties[pBored]);
             Preferences.Set(pAlone, (double)Current.Properties[pAlone]);
             Preferences.Set(pTired, (double)Current.Properties[pTired]);
+            Preferences.Set(pSleeping, (bool)Current.Properties[pSleeping]);
+            Preferences.Set(pSleepTime, (DateTime)Current.Properties[pSleepTime]);
         }
 
         private void ForceResetPreferences()
@@ -80,15 +92,27 @@ namespace Tamagossie
             Preferences.Set(pBored, 0d);
             Preferences.Set(pAlone, 170d);
             Preferences.Set(pTired, 0d);
+            Preferences.Set(pSleeping, false);
+            Preferences.Set(pSleepTime, DateTime.Now);
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            SetCreatureStat(pHunger, -0.5d);
-            SetCreatureStat(pThirst, -1d);
-            SetCreatureStat(pBored, 0.25d);
-            SetCreatureStat(pAlone, 0.2d);
-            SetCreatureStat(pTired, 0.33d);
+            if (!(bool)Current.Properties[pSleeping])
+            {
+                SetCreatureStat(pHunger, -0.5d);
+                SetCreatureStat(pThirst, -1d);
+                SetCreatureStat(pBored, 0.25d);
+                SetCreatureStat(pAlone, 0.2d);
+                SetCreatureStat(pTired, 0.33d);
+            }
+            else
+            {
+                SetCreatureStat(pHunger, -0.05d);
+                SetCreatureStat(pThirst, -0.1d);
+                SetCreatureStat(pAlone, 0.1d);
+                SetCreatureStat(pTired, -0.5d);
+            }
         }
 
         public static Timer StartTimer(string _name, double _waitTime)

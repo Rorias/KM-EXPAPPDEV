@@ -39,19 +39,79 @@ namespace Tamagossie.Views
             };
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
+
+            CheckDisallowedButtons();
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                GoneSince.Text = Application.Current.Properties[App.pLastLogin].ToString();
+                //double sleepSeconds = (DateTime.Now - (DateTime)Application.Current.Properties[App.pSleepTime]).TotalSeconds;
+                //GoneSince.Text = sleepSeconds.ToString();
                 hungerbar.WidthRequest = (double)Application.Current.Properties[App.pHunger];
                 thirstbar.WidthRequest = (double)Application.Current.Properties[App.pThirst];
                 boredbar.WidthRequest = (double)Application.Current.Properties[App.pBored];
                 alonebar.WidthRequest = (double)Application.Current.Properties[App.pAlone];
                 tiredbar.WidthRequest = (double)Application.Current.Properties[App.pTired];
+                CheckDisallowedButtons();
             });
+        }
+
+        private void CheckDisallowedButtons()
+        {
+            if ((bool)Application.Current.Properties[App.pSleeping])
+            {
+                foodNav.SetValue(IsEnabledProperty, false);
+                thirstNav.SetValue(IsEnabledProperty, false);
+                playNav.SetValue(IsEnabledProperty, false);
+                sleepNav.SetValue(IsEnabledProperty, false);
+                return;
+            }
+            else
+            {
+                foodNav.SetValue(IsEnabledProperty, true);
+                thirstNav.SetValue(IsEnabledProperty, true);
+                playNav.SetValue(IsEnabledProperty, true);
+                sleepNav.SetValue(IsEnabledProperty, true);
+            }
+
+            if ((double)Application.Current.Properties[App.pHunger] < 75d || (double)Application.Current.Properties[App.pThirst] < 50d ||
+                (double)Application.Current.Properties[App.pAlone] < 75d || (double)Application.Current.Properties[App.pTired] > 320d)
+            {
+                playNav.SetValue(IsEnabledProperty, false);
+            }
+            else
+            {
+                playNav.SetValue(IsEnabledProperty, true);
+            }
+
+            if ((double)Application.Current.Properties[App.pAlone] < 20d)
+            {
+                foodNav.SetValue(IsEnabledProperty, false);
+            }
+            else
+            {
+                foodNav.SetValue(IsEnabledProperty, true);
+            }
+
+            if ((double)Application.Current.Properties[App.pAlone] < 10d)
+            {
+                thirstNav.SetValue(IsEnabledProperty, false);
+            }
+            else
+            {
+                thirstNav.SetValue(IsEnabledProperty, true);
+            }
+
+            if ((double)Application.Current.Properties[App.pTired] > 170d)
+            {
+                sleepNav.SetValue(IsEnabledProperty, true);
+            }
+            else
+            {
+                sleepNav.SetValue(IsEnabledProperty, false);
+            }
         }
 
         public async void OnFeedClicked(object sender, EventArgs e)

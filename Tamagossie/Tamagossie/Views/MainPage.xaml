@@ -15,32 +15,33 @@
     </ContentPage.Resources>
     <RelativeLayout x:Name="navBarLayout" BackgroundColor="Transparent">
         <StackLayout x:Name="Stats">
-            <Label x:Name="GoneSince">HEY</Label>
-            <Label x:Name="hungertext" HorizontalTextAlignment="Start" FontSize="Medium">Hunger</Label>
+            <!--<Label x:Name="GoneSince">HEY</Label>-->
             <AbsoluteLayout x:Name="hungerbarholder" WidthRequest="200" HeightRequest="{StaticResource StatHeight}">
-                <Image Grid.Column="0" x:Name="hungerbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
-                <Image Grid.Column="0" x:Name="hungerbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="SaddleBrown"/>
+                <Image x:Name="hungerbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image x:Name="hungerbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="SaddleBrown"/>
+                <Label x:Name="hungertext" HorizontalTextAlignment="Start" Padding="5,3,0,0" FontSize="Medium">Hunger</Label>
             </AbsoluteLayout>
-            <Label x:Name="thirsttext" HorizontalTextAlignment="Start" FontSize="Medium">Thirst</Label>
             <AbsoluteLayout x:Name="thirstbarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
-                <Image Grid.Column="0" x:Name="thirstbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
-                <Image Grid.Column="0" x:Name="thirstbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="RoyalBlue"/>
+                <Image x:Name="thirstbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image x:Name="thirstbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="RoyalBlue"/>
+                <Label x:Name="thirsttext" HorizontalTextAlignment="Start" Padding="5,3,0,0" FontSize="Medium">Thirst</Label>
             </AbsoluteLayout>
-            <Label x:Name="boredtext" HorizontalTextAlignment="Start" FontSize="Medium">Boredom</Label>
             <AbsoluteLayout x:Name="boredbarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
-                <Image Grid.Column="0" x:Name="boredbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
-                <Image Grid.Column="0" x:Name="boredbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="AntiqueWhite"/>
+                <Image x:Name="boredbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image x:Name="boredbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="AntiqueWhite"/>
+                <Label x:Name="boredtext" HorizontalTextAlignment="Start" Padding="5,3,0,0" FontSize="Medium">Boredom</Label>
             </AbsoluteLayout>
-            <Label x:Name="alonetext" HorizontalTextAlignment="Start" FontSize="Medium">Loneliness</Label>
             <AbsoluteLayout x:Name="alonebarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
-                <Image Grid.Column="0" x:Name="alonebarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
-                <Image Grid.Column="0" x:Name="alonebar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="LawnGreen"/>
+                <Image x:Name="alonebarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image x:Name="alonebar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="LawnGreen"/>
+                <Label x:Name="alonetext" HorizontalTextAlignment="Start" Padding="5,3,0,0" FontSize="Medium">Loneliness</Label>
             </AbsoluteLayout>
-            <Label x:Name="tiredtext" HorizontalTextAlignment="Start" FontSize="Medium">Tiredness</Label>
             <AbsoluteLayout x:Name="tiredbarholder" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}">
-                <Image Grid.Column="0" x:Name="tiredbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
-                <Image Grid.Column="0" x:Name="tiredbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="MediumBlue"/>
+                <Image x:Name="tiredbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
+                <Image x:Name="tiredbar" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="MediumBlue"/>
+                <Label x:Name="tiredtext" HorizontalTextAlignment="Start" Padding="5,3,0,0" FontSize="Medium">Tiredness</Label>
             </AbsoluteLayout>
+            <Image Source="icon_main.png"  HeightRequest="250"/>
         </StackLayout>
         <Grid x:Name="navBarGrid" HeightRequest="{StaticResource NavHeight}" WidthRequest="208">
             <Grid.ColumnDefinitions>
@@ -49,13 +50,13 @@
                 <ColumnDefinition Width="{StaticResource NavWidth}"/>
                 <ColumnDefinition Width="{StaticResource NavWidth}"/>
             </Grid.ColumnDefinitions>
-            <ImageButton Grid.Column="0" Source="icon_food.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnFeedClicked"/>
+            <ImageButton x:Name="foodNav" Grid.Column="0" Source="icon_food.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnFeedClicked"/>
             <Label Grid.Column="0" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Eat</Label>
-            <ImageButton Grid.Column="1" Source="icon_thirst.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnThirstClicked"/>
+            <ImageButton x:Name="thirstNav" Grid.Column="1" Source="icon_thirst.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnThirstClicked"/>
             <Label Grid.Column="1" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Drink</Label>
-            <ImageButton Grid.Column="2" Source="icon_play.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnPlayClicked"/>
+            <ImageButton x:Name="playNav" Grid.Column="2" Source="icon_play.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnPlayClicked"/>
             <Label Grid.Column="2" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Play</Label>
-            <ImageButton Grid.Column="3" Source="icon_sleep.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnSleepClicked"/>
+            <ImageButton x:Name="sleepNav" Grid.Column="3" Source="icon_sleep.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnSleepClicked"/>
             <Label Grid.Column="3" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Sleep</Label>
         </Grid>
     </RelativeLayout>

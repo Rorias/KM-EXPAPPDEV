@@ -6,6 +6,10 @@
              Padding="10, 10, 10, 10"
              BackgroundImageSource="sleepbackground.jpg">
     <RelativeLayout x:Name="navBarLayout">
+        <StackLayout x:Name="sleepHolder" WidthRequest="150" Padding="-50,275,0,0">
+            <Image x:Name="gossie" Source="icon_main.png" HeightRequest="100"/>
+            <Button x:Name="sleepButton" Text="Tuck Gossie in" WidthRequest="150" Clicked="SleepGossieClicked"/>
+        </StackLayout>
         <Grid x:Name="navBarGrid" HeightRequest="64" WidthRequest="64">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>

@@ -36,11 +36,6 @@ namespace Tamagossie.Views
             {
                 playButton.IsEnabled = false;
             }
-
-            if ((double)Application.Current.Properties[App.pAlone] < 100d)
-            {
-                playButton.IsEnabled = false;
-            }
         }
 
         public async void OnMainClicked(object sender, EventArgs e)
