@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Timers;
 using Tamagossie.Views;
 using Xamarin.Essentials;
@@ -18,15 +19,17 @@ namespace Tamagossie
         public const string pBored = "bored";
         public const string pAlone = "alone";
         public const string pTired = "tired";
+        public const string pSleeping = "sleeping";
+
+        public static Dictionary<string, Timer> timers = new Dictionary<string, Timer>();
 
         public App()
         {
-            nowTime = DateTime.Now;
             LoadPreferences();
+            UpdateStats();
 
             InitializeComponent();
             MainPage = new NavigationPage(new MainPage());
-            //NavigationPage.SetHasNavigationBar(MainPage, false);
 
             var timer = new Timer()
             {
@@ -39,9 +42,11 @@ namespace Tamagossie
 
         private void LoadPreferences()
         {
+            nowTime = DateTime.Now;
             previousTime = Preferences.Get(pLastLogin, nowTime);
 
-            Current.Properties[pLastLogin] = nowTime.Second - previousTime.Second;
+            double totalSeconds = (nowTime - previousTime).TotalSeconds;
+            Current.Properties[pLastLogin] = totalSeconds;
             Current.Properties[pHunger] = Preferences.Get(pHunger, 340d);
             Current.Properties[pThirst] = Preferences.Get(pThirst, 340d);
             Current.Properties[pBored] = Preferences.Get(pBored, 0d);
@@ -49,13 +54,23 @@ namespace Tamagossie
             Current.Properties[pTired] = Preferences.Get(pTired, 0d);
         }
 
+        private void UpdateStats()
+        {
+            SetCreatureStat(pHunger, -((double)Current.Properties[pLastLogin] / 10d * 0.5d));
+            SetCreatureStat(pThirst, -((double)Current.Properties[pLastLogin] / 10d * 1d));
+            SetCreatureStat(pBored, ((double)Current.Properties[pLastLogin] / 10d * 0.25d));
+            SetCreatureStat(pAlone, ((double)Current.Properties[pLastLogin] / 10d * 1d));
+            SetCreatureStat(pTired, -((double)Current.Properties[pLastLogin] / 10d * 1d));
+        }
+
         private void SavePreferences()
         {
-            Preferences.Set(pHunger, Current.Properties[pHunger].ToString());
-            Preferences.Set(pThirst, Current.Properties[pThirst].ToString());
-            Preferences.Set(pBored, Current.Properties[pBored].ToString());
-            Preferences.Set(pAlone, Current.Properties[pAlone].ToString());
-            Preferences.Set(pTired, Current.Properties[pTired].ToString());
+            Preferences.Set(pLastLogin, DateTime.Now);
+            Preferences.Set(pHunger, (double)Current.Properties[pHunger]);
+            Preferences.Set(pThirst, (double)Current.Properties[pThirst]);
+            Preferences.Set(pBored, (double)Current.Properties[pBored]);
+            Preferences.Set(pAlone, (double)Current.Properties[pAlone]);
+            Preferences.Set(pTired, (double)Current.Properties[pTired]);
         }
 
         private void ForceResetPreferences()
@@ -76,13 +91,33 @@ namespace Tamagossie
             SetCreatureStat(pTired, 0.33d);
         }
 
+        public static Timer StartTimer(string _name, double _waitTime)
+        {
+            timers.Add(_name,
+             new Timer()
+             {
+                 Interval = _waitTime,
+                 AutoReset = false
+             });
+
+            timers[_name].Elapsed += (sender, e) => TimerFinished(sender, e, _name);
+
+            timers[_name].Start();
+            return timers[_name];
+        }
+
+        private static void TimerFinished(object sender, ElapsedEventArgs e, string _name)
+        {
+            timers.Remove(_name);
+        }
+
         public static void SetCreatureStat(string _stat, double _toAdd)
         {
             if (((double)Current.Properties[_stat]) + _toAdd < 340d && ((double)Current.Properties[_stat]) + _toAdd > 0d)
             {
                 Current.Properties[_stat] = ((double)Current.Properties[_stat]) + _toAdd;
             }
-            else if(((double)Current.Properties[_stat]) + _toAdd > 340d)
+            else if (((double)Current.Properties[_stat]) + _toAdd > 340d)
             {
                 Current.Properties[_stat] = 340d;
             }

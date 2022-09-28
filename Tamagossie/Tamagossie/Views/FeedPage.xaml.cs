@@ -27,13 +27,16 @@ namespace Tamagossie.Views
                     return parent.Height - navBarGrid.HeightRequest;
                 }), null, null);
 
-            var timer = new Timer()
+            navBarLayout.Children.Add(eatHolder,
+              Constraint.RelativeToParent((parent) =>
+              {
+                  return (parent.Width / 2f) - (eatHolder.WidthRequest / 2);
+              }),null, null, null);
+
+            if (App.timers.ContainsKey("EatCooldown"))
             {
-                Interval = 500,
-                AutoReset = true
-            };
-            timer.Elapsed += Timer_Elapsed;
-            timer.Start();
+                feedButton.IsEnabled = false;
+            }
         }
 
         public async void OnMainClicked(object sender, EventArgs e)
@@ -43,19 +46,34 @@ namespace Tamagossie.Views
 
         public void FeedGossieClicked(object sender, EventArgs e)
         {
+            feedButton.IsEnabled = false;
+            back.IsEnabled = false;
+
             foodToEat.TranslateTo(0, -100, 1000);
             foodToEat.FadeTo(0, 1000);
+
+            App.StartTimer("EatTimer", 1100).Elapsed += FoodEaten;
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void FoodEaten(object sender, ElapsedEventArgs e)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 if (!foodToEat.IsAnimationPlaying && foodToEat.Opacity == 0)
                 {
+                    back.IsEnabled = true;
                     ResetAnimation();
                     FeedGossie();
+                    App.StartTimer("EatCooldown", 10000).Elapsed += Cooldown_Over;
                 }
+            });
+        }
+
+        private void Cooldown_Over(object sender, ElapsedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                feedButton.SetValue(IsEnabledProperty, true);
             });
         }
 
@@ -70,7 +88,7 @@ namespace Tamagossie.Views
             App.SetCreatureStat(App.pHunger, 100d);
             App.SetCreatureStat(App.pBored, -20d);
             App.SetCreatureStat(App.pAlone, -20d);
-            App.SetCreatureStat(App.pTired, -20d);
+            App.SetCreatureStat(App.pTired, 20d);
         }
     }
 }

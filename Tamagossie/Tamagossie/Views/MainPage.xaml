@@ -15,6 +15,7 @@
     </ContentPage.Resources>
     <RelativeLayout x:Name="navBarLayout" BackgroundColor="Transparent">
         <StackLayout x:Name="Stats">
+            <Label x:Name="GoneSince">HEY</Label>
             <Label x:Name="hungertext" HorizontalTextAlignment="Start" FontSize="Medium">Hunger</Label>
             <AbsoluteLayout x:Name="hungerbarholder" WidthRequest="200" HeightRequest="{StaticResource StatHeight}">
                 <Image Grid.Column="0" x:Name="hungerbarbg" WidthRequest="{StaticResource StatWidth}" HeightRequest="{StaticResource StatHeight}" BackgroundColor="DimGray"/>
@@ -49,13 +50,13 @@
                 <ColumnDefinition Width="{StaticResource NavWidth}"/>
             </Grid.ColumnDefinitions>
             <ImageButton Grid.Column="0" Source="icon_food.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnFeedClicked"/>
-            <Label Grid.Column="0" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Eat</Label>
+            <Label Grid.Column="0" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Eat</Label>
             <ImageButton Grid.Column="1" Source="icon_thirst.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnThirstClicked"/>
-            <Label Grid.Column="1" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Drink</Label>
+            <Label Grid.Column="1" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Drink</Label>
             <ImageButton Grid.Column="2" Source="icon_play.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnPlayClicked"/>
-            <Label Grid.Column="2" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Play</Label>
+            <Label Grid.Column="2" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Play</Label>
             <ImageButton Grid.Column="3" Source="icon_sleep.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnSleepClicked"/>
-            <Label Grid.Column="3" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="Medium" InputTransparent="True">Sleep</Label>
+            <Label Grid.Column="3" HeightRequest="{StaticResource NavHeight}" WidthRequest="{StaticResource NavWidth}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" FontSize="18" InputTransparent="True">Sleep</Label>
         </Grid>
     </RelativeLayout>
 </ContentPage>

@@ -5,18 +5,17 @@
              NavigationPage.HasNavigationBar="False"
              Padding="10, 10, 10, 10"
              BackgroundImageSource="feedbackground.jpg">
-    <!-- Layout children in two rows -->
     <RelativeLayout x:Name="navBarLayout">
-        <StackLayout>
+        <StackLayout x:Name="eatHolder" WidthRequest="125" Padding="0,150,0,0">
             <Image Source="feedmouth.png" HeightRequest="100"/>
             <Image x:Name="foodToEat" Source="icon_food.png" HeightRequest="100"/>
-            <Button Text="Feed gossie" Clicked="FeedGossieClicked" WidthRequest="340"/>
+            <Button x:Name="feedButton" Text="Feed gossie" Clicked="FeedGossieClicked"/>
         </StackLayout>
         <Grid x:Name="navBarGrid" HeightRequest="64" WidthRequest="64">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>
             </Grid.ColumnDefinitions>
-            <ImageButton Grid.Column="0" Source="icon_main.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnMainClicked"/>
+            <ImageButton x:Name="back" Grid.Column="0" Source="icon_main.png" BackgroundColor="Transparent" HeightRequest="64" WidthRequest="64" Clicked="OnMainClicked"/>
         </Grid>
     </RelativeLayout>
 </ContentPage>

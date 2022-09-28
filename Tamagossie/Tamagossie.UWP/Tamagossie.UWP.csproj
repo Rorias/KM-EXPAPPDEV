@@ -104,11 +104,17 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="beachball.png" />
+    <Content Include="drinkbackground.jpg" />
+    <Content Include="feedbackground.jpg" />
+    <Content Include="feedmouth.png" />
     <Content Include="icon_food.png" />
     <Content Include="icon_main.png" />
     <Content Include="icon_play.png" />
     <Content Include="icon_sleep.png" />
     <Content Include="icon_thirst.png" />
+    <Content Include="mainbackground.jpg" />
+    <Content Include="playbackground.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
@@ -137,6 +143,8 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="sleepbackground.jpg" />
+    <Content Include="water.png" />
     <Content Include="xamarin_logo.png" />
   </ItemGroup>
   <ItemGroup>

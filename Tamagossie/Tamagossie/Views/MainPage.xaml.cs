@@ -32,7 +32,7 @@ namespace Tamagossie.Views
                     return parent.Height - navBarGrid.HeightRequest;
                 }), null, null);
 
-            var timer = new Timer()
+            Timer timer = new Timer()
             {
                 Interval = 500,
                 AutoReset = true
@@ -45,6 +45,7 @@ namespace Tamagossie.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                GoneSince.Text = Application.Current.Properties[App.pLastLogin].ToString();
                 hungerbar.WidthRequest = (double)Application.Current.Properties[App.pHunger];
                 thirstbar.WidthRequest = (double)Application.Current.Properties[App.pThirst];
                 boredbar.WidthRequest = (double)Application.Current.Properties[App.pBored];
